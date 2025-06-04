@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/user.controller')();
 const adminController = require('../controllers/admin.controller')();
+const productController = require('../controllers/product.controller')();
 
 // ******** DEMO ROUTES ********
 
@@ -40,5 +41,16 @@ router.patch('/api/adminUpdate/:id', adminController.updateAdmin);
 
 // Admin Delete Route
 router.delete('/api/adminDelete/:id', adminController.deleteAdmin);
+
+// ********* PRODUCT ROUTES *************
+
+// Create a new product
+router.post('/api/products/create', productController.createProduct);
+
+// Update an existing product by ID
+router.patch('/api/products/update/:id', productController.updateProduct);
+
+// Delete a product by ID
+router.delete('/api/products/delete/:id', productController.deleteProduct);
 
 module.exports = router;
