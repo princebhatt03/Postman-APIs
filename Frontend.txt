@@ -1,0 +1,85 @@
+// Use This Code in the Frontend and uncomment the code in the controller for connecting it to the Frontend
+
+// 1.  For Registration of User
+
+import axios from 'axios';
+
+const handleRegister = async () => {
+  try {
+    const response = await axios.post('/api/users/register', {
+      fullName,
+      username,
+      email,
+      mobile,
+      password,
+    });
+
+    if (response.data.success) {
+      alert('Registration Successful');
+      // redirect to login page or dashboard
+      navigate('/login');
+    }
+  } catch (err) {
+    console.error(err);
+    alert(err.response?.data?.message || 'Something went wrong');
+  }
+};
+
+// 2. For Logining of User
+
+import axios from 'axios';
+
+const handleLogin = async () => {
+  try {
+    const response = await axios.post('/api/users/login', {
+      username,
+      password,
+    });
+
+    if (response.data.success) {
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      alert('Login Successful!');
+      navigate('/dashboard');
+    }
+  } catch (err) {
+    alert(err.response?.data?.message || 'Login failed!');
+  }
+};
+
+// 3.  For Updating of User
+
+const handleUpdate = async () => {
+  try {
+    const response = await axios.patch(`/api/users/update/${userId}`, {
+      fullName,
+      mobile,
+      // Include only fields to be updated
+    });
+
+    if (response.data.success) {
+      alert('Profile Updated');
+      navigate('/profile');
+    }
+  } catch (err) {
+    alert(err.response?.data?.message || 'Update failed!');
+  }
+};
+
+// 4.  For Deleting of User
+
+const deleteAccount = async () => {
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const userId = user?.id;
+
+    const response = await axios.delete(`/api/users/delete/${userId}`);
+
+    if (response.data.success) {
+      alert("Account deleted");
+      localStorage.clear();
+      navigate('/register');
+    }
+  } catch (err) {
+    alert(err.response?.data?.message || "Delete failed");
+  }
+};

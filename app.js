@@ -6,6 +6,9 @@ const connectToDb = require('./db/db');
 const app = express();
 connectToDb();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use('/', Routes);
 
 module.exports = app;
