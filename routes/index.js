@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require('../controllers/user.controller')();
 const adminController = require('../controllers/admin.controller')();
 const productController = require('../controllers/product.controller')();
+const cartController = require('../controllers/cart.controller')();
 
 // ******** DEMO ROUTES ********
 
@@ -52,5 +53,8 @@ router.patch('/api/products/update/:id', productController.updateProduct);
 
 // Delete a product by ID
 router.delete('/api/products/delete/:id', productController.deleteProduct);
+
+// Route to add to cart
+router.post('/api/add', cartController.addToCart);
 
 module.exports = router;
